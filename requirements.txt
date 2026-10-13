@@ -1,0 +1,9 @@
+# MCP server and client. Stay on 1.x: the workshop uses `mcp.server.fastmcp`,
+# which 2.x renamed to MCPServer.
+mcp>=1.17,<2
+
+# Neo4j
+neo4j>=6.0
+
+# Configuration from the .env file
+python-dotenv>=1.0
