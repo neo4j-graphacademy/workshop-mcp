@@ -1,0 +1,3 @@
+# Extra packages for the optional text-to-Cypher tool.
+# Install them with:  pip install -r requirements-t2c.txt
+neo4j-graphrag[openai]>=1.22,<2

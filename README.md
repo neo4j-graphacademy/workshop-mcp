@@ -38,13 +38,23 @@ python client/main.py --list   # list the tools and exit
 
 The server has two example tools, `get_schema` and `get_sample_nodes`. Add your own tools in `server/main.py`, below the marked comment, and restart the server after each change.
 
+## Run the agent
+
+With the MCP server running, ask the agent a question. It prints each tool it calls:
+
+```bash
+python agent/main.py "Which movies has Tom Hanks acted in?"
+```
+
 ## The files
 
 | File | What it is |
 | --- | --- |
 | `server/main.py` | The MCP server: the Neo4j connection, two example tools, and the place for your tools |
 | `client/main.py` | A command-line client for testing the server |
+| `agent/main.py` | A minimal Python agent that uses your server's tools |
+| `solutions/` | A reference solution for the Movies graph |
 | `my-tools/` | Where you record your questions, queries and tool definitions. Your coding agent reads it |
 | `AGENTS.md` | Instructions for your coding agent. `.github/copilot-instructions.md` and `CLAUDE.md` point to it |
-| `test_environment.py` | Checks your `.env` and the Neo4j connection |
+| `test_environment.py` | Checks your `.env`, the Neo4j connection, and the LLM connection |
 | `.vscode/mcp.json` | Connects VS Code to the server |

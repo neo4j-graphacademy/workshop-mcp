@@ -7,3 +7,6 @@ neo4j>=6.0
 
 # Configuration from the .env file
 python-dotenv>=1.0
+
+# The LLM client, used by the agent and the environment test
+openai>=3.0
