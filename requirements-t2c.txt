@@ -1,0 +1,18 @@
+# Extra packages for the optional text-to-Cypher tool.
+# Install them with:  pip install -r requirements-t2c.txt
+# All versions are pinned, and were tested together with requirements.txt on Python 3.12.
+
+-r requirements.txt
+
+# The retriever
+neo4j-graphrag[openai]==1.22.0
+
+# The packages that the retriever depends on
+fsspec==2026.7.0
+json_repair==0.64.0
+numpy==2.5.4
+pypdf==6.20.1
+PyYAML==6.0.3
+scipy==1.18.1
+tenacity==9.2.1
+types-PyYAML==6.0.12.20260906

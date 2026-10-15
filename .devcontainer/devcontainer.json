@@ -1,0 +1,33 @@
+{
+  "name": "Neo4j MCP Server Workshop",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "postCreateCommand": "bash .devcontainer/post_create.sh",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "MCP server",
+      "onAutoForward": "silent"
+    }
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        ".devcontainer/README.md",
+        ".env",
+        "test_environment.py"
+      ]
+    },
+    "vscode": {
+      "settings": {
+        "python.createEnvironment.trigger": "off"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "github.copilot",
+        "github.copilot-chat",
+        "neo4j-extensions.neo4j-for-vscode"
+      ]
+    }
+  }
+}
