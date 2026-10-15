@@ -4,7 +4,9 @@ Companion code for the [Neo4j MCP Server Workshop](https://graphacademy.neo4j.co
 
 ## Setup
 
-Open this repository in a GitHub Codespace. The packages install and an `.env` file is created from `.env.example` for you, so only the last two steps below are left. Or set up on your own machine:
+[Open this repository in a GitHub Codespace](https://codespaces.new/neo4j-graphacademy/workshop-mcp)
+
+**Or** set up on your own machine (Python 3.10 or later):
 
 ```bash
 python -m venv .venv
@@ -14,12 +16,12 @@ cp .env.example .env          # then fill in your values
 python test_environment.py
 ```
 
+Work entirely in the Codespace or entirely on your own machine. Do not mix the two, because the MCP server and the client need to run in the same place.
+
+## Environment 
+
 1. Fill in `.env` with the connection details from the course.
 2. Run `python test_environment.py`. Every check should pass before you start.
-
-Work entirely in a Codespace or entirely on your own machine. Do not mix the two.
-
-You need Python 3.10 or later.
 
 ## Run the MCP server and the test client
 
