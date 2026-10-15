@@ -156,17 +156,17 @@ async def movies_by_actor(
     actor: str, # (2)
     limit: int = 10,
 ) -> list[dict[str, Any]]:
-    """Find the movies an actor has appeared in, with the role they played.
-    Use this tool when the question is about a particular actor's films.""" # (3)
+    """Find the movies an actor has appeared in, with the role they played. # (3)
+    Use this tool when the question is about a particular actor's films."""
     return await read( # (5)
-        ctx,
+        ctx, # (4)
         """
         MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
         WHERE p.name = $actor
         RETURN m.title AS movie, m.year AS year, r.role AS role
         ORDER BY m.year
         LIMIT $limit
-        """, # (4)
+        """, 
         actor=actor,
         limit=limit,
     )
@@ -180,12 +180,12 @@ async def count_movies(
     genre: str, # (3)
 ) -> int: # (4)
     """Count the movies in a genre. Use this tool when asked how many movies a genre has.""" # (5)
-    rows = await read(
+    rows = await read( # (6)
         ctx,
         """
         MATCH (:Movie)-[:IN_GENRE]->(:Genre {name: $genre})
         RETURN count(*) AS total
-        """, # (6)
+        """, 
         genre=genre,
     )
     return rows[0]["total"]

@@ -226,13 +226,13 @@ retriever = Text2CypherRetriever(
 """
 
 # tag::ask_the_graph[]
-@mcp.tool()
-async def ask_the_graph(question: str) -> dict[str, Any]:
-    """Answer a question about the knowledge graph by generating a Cypher query and running it.
+@mcp.tool() 
+async def ask_the_graph(question: str) -> dict[str, Any]: 
+    """Answer a question about the knowledge graph by generating a Cypher query and running it. 
     Use this tool when none of the other tools fits the question.
     The result includes the Cypher that was generated.""" # (3)
     result = await asyncio.to_thread(retriever.search, query_text=question) # (4)
-    return {
+    return { 
         "cypher": result.metadata["cypher"], # (5)
         "records": [item.content for item in result.items],
     }
