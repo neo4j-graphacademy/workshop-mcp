@@ -60,6 +60,7 @@ async def movies_by_actor(ctx: Context, actor: str, limit: int = 10) -> list[dic
 - The server does not reload. Restart it after every change to a tool.
 - Test the tools with `python client/main.py`. Use `python client/main.py --list` to list them.
 - Check the environment with `python test_environment.py`.
+- Run the quick tests of the server, client, and agent with `python test_workshop.py`. They need no Neo4j instance or LLM.
 - A tool that returns a list sends one result block for each item. That is normal.
 
 ## Do not

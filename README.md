@@ -58,5 +58,6 @@ python agent/main.py "Which movies has Tom Hanks acted in?"
 | `solutions/` | A reference solution for the Movies graph |
 | `my-tools/` | Where you record your questions, queries and tool definitions. Your coding agent reads it |
 | `AGENTS.md` | Instructions for your coding agent. `.github/copilot-instructions.md` and `CLAUDE.md` point to it |
+| `test_workshop.py` | Quick tests for the server, the client, and the agent. They need no Neo4j instance or LLM |
 | `test_environment.py` | Checks your `.env`, the Neo4j connection, and the LLM connection |
 | `.vscode/mcp.json` | Connects VS Code to the server |
