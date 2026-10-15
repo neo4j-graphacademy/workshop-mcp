@@ -149,11 +149,16 @@ async def get_sample_nodes(ctx: Context, label: str, limit: int = 5) -> list[dic
 # ---------------------------------------------------------------------------
 
 
-@mcp.tool()
-async def movies_by_actor(ctx: Context, actor: str, limit: int = 10) -> list[dict[str, Any]]:
+# tag::movies_by_actor[]
+@mcp.tool() # (1)
+async def movies_by_actor(
+    ctx: Context,
+    actor: str, # (2)
+    limit: int = 10,
+) -> list[dict[str, Any]]:
     """Find the movies an actor has appeared in, with the role they played.
-    Use this tool when the question is about a particular actor's films."""
-    return await read(
+    Use this tool when the question is about a particular actor's films.""" # (3)
+    return await read( # (5)
         ctx,
         """
         MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
@@ -161,70 +166,30 @@ async def movies_by_actor(ctx: Context, actor: str, limit: int = 10) -> list[dic
         RETURN m.title AS movie, m.year AS year, r.role AS role
         ORDER BY m.year
         LIMIT $limit
-        """,
+        """, # (4)
         actor=actor,
         limit=limit,
     )
+# end::movies_by_actor[]
 
 
-@mcp.tool()
-async def count_movies(ctx: Context, genre: str) -> int:
-    """Count the movies in a genre. Use this tool when asked how many movies a genre has."""
+# tag::count_movies[]
+@mcp.tool() # (1)
+async def count_movies(
+    ctx: Context, # (2)
+    genre: str, # (3)
+) -> int: # (4)
+    """Count the movies in a genre. Use this tool when asked how many movies a genre has.""" # (5)
     rows = await read(
         ctx,
         """
         MATCH (:Movie)-[:IN_GENRE]->(:Genre {name: $genre})
         RETURN count(*) AS total
-        """,
+        """, # (6)
         genre=genre,
     )
     return rows[0]["total"]
-
-
-# ---------------------------------------------------------------------------
-# The optional text-to-Cypher tool. It needs the extra packages in
-# requirements-t2c.txt, and is left out of the server when they are not installed.
-# ---------------------------------------------------------------------------
-
-try:
-    import asyncio
-
-    from neo4j import GraphDatabase
-    from neo4j_graphrag.llm import OpenAILLM
-    from neo4j_graphrag.retrievers import Text2CypherRetriever
-except ImportError:
-    pass
-else:
-    llm = OpenAILLM(
-        model_name="gpt-5.4-mini",
-        base_url=os.environ["OPENAI_BASE_URL"],
-        api_key=os.environ["OPENAI_API_KEY"],
-    )
-
-    retriever = Text2CypherRetriever(
-        driver=GraphDatabase.driver(
-            os.environ["NEO4J_URI"],
-            auth=(os.environ["NEO4J_USERNAME"], os.environ["NEO4J_PASSWORD"]),
-        ),
-        neo4j_database=os.environ["NEO4J_DATABASE"],
-        llm=llm,
-        examples=[
-            "USER INPUT: 'Which movies has Tom Hanks acted in?' "
-            "QUERY: MATCH (p:Person {name: 'Tom Hanks'})-[:ACTED_IN]->(m:Movie) RETURN m.title AS movie",
-        ],
-    )
-
-    @mcp.tool()
-    async def ask_the_graph(question: str) -> dict[str, Any]:
-        """Answer a question about the knowledge graph by generating a Cypher query and running it.
-        Use this tool when none of the other tools fits the question.
-        The result includes the Cypher that was generated."""
-        result = await asyncio.to_thread(retriever.search, query_text=question)
-        return {
-            "cypher": result.metadata["cypher"],
-            "records": [item.content for item in result.items],
-        }
-
+# end::count_movies[]
 
 if __name__ == "__main__":
     mcp.run(transport="streamable-http")

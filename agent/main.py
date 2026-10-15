@@ -27,6 +27,7 @@ SYSTEM_PROMPT = (
 llm = OpenAI(base_url=os.environ["OPENAI_BASE_URL"], api_key=os.environ["OPENAI_API_KEY"])
 
 
+# tag::agent_loop[]
 async def ask(question: str) -> str:
     async with streamablehttp_client(SERVER_URL) as (read, write, _):
         async with ClientSession(read, write) as session:
@@ -34,14 +35,14 @@ async def ask(question: str) -> str:
 
             # The tools on the server, described the way the LLM expects.
             # The LLM sees each tool's name, description, and parameters, and nothing else.
-            tools = [
+            tools = [ # (1)
                 {
                     "type": "function",
                     "function": {
                         "name": tool.name,
                         "description": tool.description or "",
                         "parameters": tool.inputSchema,
-                    },
+                    }, # (2)
                 }
                 for tool in (await session.list_tools()).tools
             ]
@@ -51,16 +52,16 @@ async def ask(question: str) -> str:
                 {"role": "user", "content": question},
             ]
 
-            for _ in range(MAX_STEPS):
+            for _ in range(MAX_STEPS): # (3)
                 # The LLM reasons about the question and the results so far
                 reply = llm.chat.completions.create(
                     model=MODEL, messages=messages, tools=tools
-                ).choices[0].message
+                ).choices[0].message # (4)
                 messages.append(reply)
 
                 # No tool calls: the LLM has enough to answer
                 if not reply.tool_calls:
-                    return reply.content
+                    return reply.content # (5)
 
                 # Tool calls: run each one on the MCP server and give the LLM the result
                 for call in reply.tool_calls:
@@ -68,11 +69,12 @@ async def ask(question: str) -> str:
                     print(f"Tool: {call.function.name} {arguments}")
                     result = await session.call_tool(call.function.name, arguments)
                     text = "\n".join(getattr(item, "text", "") for item in result.content)
-                    messages.append(
+                    messages.append( # (6)
                         {"role": "tool", "tool_call_id": call.id, "content": text}
                     )
 
             return "The agent stopped after too many steps."
+# end::agent_loop[]
 
 
 if __name__ == "__main__":
