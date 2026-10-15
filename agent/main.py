@@ -16,7 +16,7 @@ from openai import OpenAI
 load_dotenv()
 
 SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8000/mcp")
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-5.4-mini"
 MAX_STEPS = 8  # the most times the agent may call the LLM for one question
 SYSTEM_PROMPT = (
     "You answer questions about a Neo4j knowledge graph. "

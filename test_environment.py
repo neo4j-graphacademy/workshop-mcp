@@ -93,7 +93,7 @@ class TestEnvironment(unittest.TestCase):
         try:
             # The course's LLM service has no model list, so the test makes a very small request.
             client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-5.4-mini",
                 messages=[{"role": "user", "content": "Reply with the word OK."}],
                 max_tokens=5,
             )

@@ -4,6 +4,8 @@ Define a tool for each question your knowledge graph needs to answer. Your codin
 
 A tool is a Cypher query that an agent can call. The agent reads the tool's **description** to decide whether to use it, so write it for the agent, not for yourself.
 
+Keep each query read-only (`MATCH`, `WHERE`, `RETURN`, `WITH`, `ORDER BY`, `LIMIT`), and write each value as a `$parameter`.
+
 ## Example
 
 ### movies_by_actor
@@ -13,7 +15,14 @@ A tool is a Cypher query that an agent can call. The agent reads the tool's **de
 - **Parameters:**
   - `actor` (text, required): the actor's full name
   - `limit` (number, optional): the most movies to return, 10 by default
-- **Query:** see `movies_by_actor` in `queries.cypher`
+- **Query:**
+  ```cypher
+  MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
+  WHERE p.name = $actor
+  RETURN m.title AS movie, m.year AS year, r.role AS role
+  ORDER BY m.year
+  LIMIT $limit
+  ```
 - **Returns:** a list of movies, each with its title, year and the role
 
 ## Your tools
@@ -23,7 +32,9 @@ A tool is a Cypher query that an agent can call. The agent reads the tool's **de
 - **Question:**
 - **Description:**
 - **Parameters:**
-- **Query:** see (tool name) in `queries.cypher`
+- **Query:**
+  ```cypher
+  ```
 - **Returns:**
 
 ### (tool name)
@@ -31,5 +42,7 @@ A tool is a Cypher query that an agent can call. The agent reads the tool's **de
 - **Question:**
 - **Description:**
 - **Parameters:**
-- **Query:** see (tool name) in `queries.cypher`
+- **Query:**
+  ```cypher
+  ```
 - **Returns:**

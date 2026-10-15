@@ -63,6 +63,9 @@ def print_tools(tools: list[Any]) -> None:
 
 
 def print_result(result: Any) -> None:
+    # A tool that finds no rows, or returns None, sends no content blocks.
+    if not result.content and not result.isError:
+        print("None")
     for item in result.content:
         print(getattr(item, "text", item))
     if result.isError:

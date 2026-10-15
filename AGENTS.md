@@ -10,12 +10,11 @@ You are the coding agent that helps with the implementation. The learner makes t
 - `client/main.py` is a command-line client for testing the server's tools.
 - `agent/main.py` is a minimal Python agent that uses the server's tools through an LLM.
 - `solutions/` holds a reference solution for the Movies graph. Do not copy from it to build the learner's tools, as the learner decides their own tools.
-- `my-tools/queries.cypher` holds the learner's Cypher queries, one for each question.
-- `my-tools/tools.md` holds the learner's tool definitions: name, description, parameters, and the query each tool runs.
+- `my-tools/tools.md` holds the learner's tool definitions: for each tool, its question, name, description, parameters, the Cypher query it runs, and what it returns.
 - `.vscode/mcp.json` connects VS Code to the server at `http://localhost:8000/mcp`.
 - `.env` holds the Neo4j connection details. Never print it, commit it, or copy its values into code.
 
-Read `my-tools/queries.cypher` and `my-tools/tools.md` before you write or change a tool.
+Read `my-tools/tools.md` before you write or change a tool.
 
 ## How to help
 

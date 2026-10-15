@@ -196,7 +196,7 @@ except ImportError:
     pass
 else:
     llm = OpenAILLM(
-        model_name="gpt-4o-mini",
+        model_name="gpt-5.4-mini",
         base_url=os.environ["OPENAI_BASE_URL"],
         api_key=os.environ["OPENAI_API_KEY"],
     )
