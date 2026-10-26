@@ -6,7 +6,7 @@ Companion code for the [Neo4j MCP Server Workshop](https://graphacademy.neo4j.co
 
 [Open this repository in a GitHub Codespace](https://codespaces.new/neo4j-graphacademy/workshop-mcp)
 
-**Or** set up on your own machine (Python 3.10 or later):
+**Or** set up on your own machine (Python 3.12 or later):
 
 ```bash
 python -m venv .venv
