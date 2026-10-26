@@ -1,5 +1,5 @@
 # All versions are pinned, so that a new release cannot break the workshop.
-# They were tested together on Python 3.12, the version in the devcontainer.
+# They were tested together on Python 3.12, the version in the devcontainer, and need Python 3.12 or later.
 
 # MCP server and client. Stay on 1.x: the workshop uses `mcp.server.fastmcp`,
 # which 2.x renamed to MCPServer.
