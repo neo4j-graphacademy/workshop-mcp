@@ -47,7 +47,7 @@ async def movies_by_actor(ctx: Context, actor: str, limit: int = 10) -> list[dic
     )
 ```
 
-- **Parameters.** Pass every value to the query as a `$parameter`. Never build a value into the Cypher text with string formatting. Labels and relationship types cannot be parameters, so check them against the real ones, as `get_sample_nodes` does.
+- **Parameters.** Give each parameter a type that matches its definition: `str` for text, `int` for a whole number, and `float` for a decimal number. Pass every value to the query as a `$parameter`. Never build a value into the Cypher text with string formatting. Labels and relationship types cannot be parameters, so check them against the real ones, as `get_sample_nodes` does.
 - **Read-only.** Use only read clauses such as `MATCH`, `WHERE`, `RETURN`, `WITH`, `ORDER BY`, and `LIMIT`. Never `CREATE`, `MERGE`, `SET`, `DELETE`, or `REMOVE`. The `read()` helper runs queries in read mode.
 - **Database.** Always run queries through `read()`. It uses the `NEO4J_DATABASE` value, which is not `neo4j`. Never hard-code a database name.
 - **Description.** The docstring is what an agent reads to decide whether to call the tool. Say what the tool does, what it returns, and when to use it.

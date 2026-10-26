@@ -4,7 +4,7 @@ Define a tool for each question your knowledge graph needs to answer. Your codin
 
 A tool is a Cypher query that an agent can call. The agent reads the tool's **description** to decide whether to use it, so write it for the agent, not for yourself.
 
-Keep each query read-only (`MATCH`, `WHERE`, `RETURN`, `WITH`, `ORDER BY`, `LIMIT`), and write each value as a `$parameter`.
+Keep each query read-only (`MATCH`, `WHERE`, `RETURN`, `WITH`, `ORDER BY`, `LIMIT`), and write each value as a `$parameter`. Give each parameter a type: text, whole number, or decimal number.
 
 ## Example
 
@@ -14,7 +14,7 @@ Keep each query read-only (`MATCH`, `WHERE`, `RETURN`, `WITH`, `ORDER BY`, `LIMI
 - **Description:** Find the movies an actor has appeared in, with the role they played. Use it when the question is about a particular actor's films.
 - **Parameters:**
   - `actor` (text, required): the actor's full name
-  - `limit` (number, optional): the most movies to return, 10 by default
+  - `limit` (whole number, optional): the most movies to return, 10 by default
 - **Query:**
   ```cypher
   MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
